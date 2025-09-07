@@ -1,0 +1,288 @@
+/* Modern Project View Styles */
+.modern-project-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.modern-project-view.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* padding: .7rem .7rem .7rem; */
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  gap: 1rem;
+}
+
+.project-info {
+  flex: 1;
+}
+
+.project-info h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-description {
+  margin: 0;
+  color: #718096;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.project-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn.refresh {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+
+.action-btn.refresh:hover {
+  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.4);
+}
+
+.action-btn.external {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: white;
+  box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
+}
+
+.action-btn.external:hover {
+  box-shadow: 0 6px 16px rgba(67, 233, 123, 0.4);
+}
+
+.action-btn.fullscreen {
+  background: linear-gradient(135deg, #fa709a, #fee140);
+  color: white;
+  box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+}
+
+.action-btn.fullscreen:hover {
+  box-shadow: 0 6px 16px rgba(250, 112, 154, 0.4);
+}
+
+/* PowerBI Container */
+.powerbi-container {
+  flex: 1;
+  position: relative;
+  background: #f8fafc;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.powerbi-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.powerbi-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0 0 20px 20px;
+  background: white;
+}
+
+/* Loading Overlay */
+.powerbi-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  opacity: 1;
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.loading-indicator {
+  text-align: center;
+  color: #667eea;
+}
+
+.loading-indicator .loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(102, 126, 234, 0.2);
+  border-left: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+.loading-indicator p {
+  margin: 0;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* No Dashboard State */
+.no-dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(102, 126, 234, 0.05), transparent);
+}
+
+.no-dashboard-content {
+  text-align: center;
+  max-width: 400px;
+  padding: 3rem 2rem;
+}
+
+.no-dashboard-content svg {
+  margin-bottom: 2rem;
+  opacity: 0.3;
+  color: #a0aec0;
+}
+
+.no-dashboard-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.no-dashboard-content p {
+  margin: 0;
+  color: #718096;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .project-header {
+    padding: 1.5rem 1rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .project-info h2 {
+    font-size: 1.5rem;
+  }
+  
+  .project-actions {
+    justify-content: center;
+  }
+  
+  .action-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .no-dashboard-content {
+    padding: 2rem 1rem;
+  }
+  
+  .no-dashboard-content svg {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .no-dashboard-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .loading-indicator .loading-spinner {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-header {
+    padding: 1rem 0.75rem 0.75rem;
+  }
+  
+  .project-info h2 {
+    font-size: 1.25rem;
+  }
+  
+  .project-description {
+    font-size: 0.875rem;
+  }
+  
+  .action-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .action-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Fullscreen specific styles */
+.modern-project-view.fullscreen .powerbi-container {
+  border-radius: 0;
+}
+
+.modern-project-view.fullscreen .powerbi-iframe {
+  border-radius: 0;
+}
+
+.modern-project-view.fullscreen .project-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
