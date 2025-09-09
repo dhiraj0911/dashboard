@@ -1,3 +1,26 @@
+/* Color Variables */
+:root {
+  --alice-blue: #edf2fb;
+  --lavender-web: #e2eafc;
+  --lavender-web-2: #d7e3fc;
+  --periwinkle: #ccdbfd;
+  --periwinkle-2: #c1d3fe;
+  --periwinkle-3: #b6ccfe;
+  --jordy-blue: #abc4ff;
+  
+  /* Additional complementary colors */
+  --white: #ffffff;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --border-light: rgba(171, 196, 255, 0.2);
+  --shadow-light: rgba(171, 196, 255, 0.1);
+  --shadow-medium: rgba(171, 196, 255, 0.2);
+  --success: #48bb78;
+  --warning: #ed8936;
+  --error: #e53e3e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,13 +28,37 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--alice-blue) 0%, var(--lavender-web) 50%, var(--periwinkle) 100%);
+  min-height: 100vh;
 }
 
 .App {
   height: 100vh;
+  position: relative;
+}
+
+/* Global scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--alice-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--periwinkle), var(--jordy-blue));
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--periwinkle-2), var(--periwinkle-3));
 }

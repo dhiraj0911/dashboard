@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Company, Project } from '../types';
 import Sidebar from './Sidebar';
 import ProjectView from './ProjectView';
-import { LogOut, Menu, X, BarChart3, Building2, FolderOpen, User } from 'lucide-react';
+import { LogOut, Menu, X, BarChart3, Building2, FolderOpen, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -11,21 +11,16 @@ const Dashboard: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [userCompanies, setUserCompanies] = useState<Company[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
   useEffect(() => {
     if (user) {
-      // Group projects by company for the user
-      const companiesWithProjects = user.companies.map(company => ({
-        ...company,
-        projects: company.projects.filter(project => 
-          user.projects.some(userProject => userProject._id === project._id)
-        )
-      }));
-      setUserCompanies(companiesWithProjects);
+      // Use the companies data directly from the user profile which includes populated projects
+      setUserCompanies(user.companies);
 
       // Auto-select first project if available
-      if (companiesWithProjects.length > 0) {
-        const firstCompanyWithProjects = companiesWithProjects.find(c => c.projects.length > 0);
+      if (user.companies.length > 0) {
+        const firstCompanyWithProjects = user.companies.find(c => c.projects && c.projects.length > 0);
         if (firstCompanyWithProjects && !selectedProject) {
           setSelectedProject(firstCompanyWithProjects.projects[0]);
         }
@@ -56,6 +51,13 @@ const Dashboard: React.FC = () => {
           >
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          <button 
+            className="sidebar-toggle-btn"
+            onClick={() => setSidebarVisible(!sidebarVisible)}
+            title={sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
+          >
+            {sidebarVisible ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+          </button>
           <div className="brand">
             <BarChart3 size={28} className="brand-icon" />
             <h2>Dashboard</h2>
@@ -83,17 +85,19 @@ const Dashboard: React.FC = () => {
         {/* Sidebar Overlay for Mobile */}
         {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
         
-        <Sidebar 
-          companies={userCompanies}
-          onProjectSelect={(project) => {
-            setSelectedProject(project);
-            setSidebarOpen(false); // Close sidebar on mobile after selection
-          }}
-          selectedProject={selectedProject}
-          isOpen={sidebarOpen}
-        />
+        {sidebarVisible && (
+          <Sidebar 
+            companies={userCompanies}
+            onProjectSelect={(project) => {
+              setSelectedProject(project);
+              setSidebarOpen(false); // Close sidebar on mobile after selection
+            }}
+            selectedProject={selectedProject}
+            isOpen={sidebarOpen}
+          />
+        )}
         
-        <main className="main-content">
+        <main className={`main-content ${!sidebarVisible ? 'full-width' : ''}`}>
           {selectedProject ? (
             <ProjectView project={selectedProject} />
           ) : (
