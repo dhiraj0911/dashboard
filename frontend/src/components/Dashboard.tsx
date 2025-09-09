@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Company, Project } from '../types';
 import Sidebar from './Sidebar';
 import ProjectView from './ProjectView';
-import { LogOut, Menu, X, BarChart3, Building2, FolderOpen, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LogOut, Menu, X, BarChart3, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -38,7 +38,6 @@ const Dashboard: React.FC = () => {
   }
 
   const totalProjects = user.projects.length;
-  const totalCompanies = user.companies.length;
 
   return (
     <div className="modern-dashboard">
@@ -55,6 +54,10 @@ const Dashboard: React.FC = () => {
             className="sidebar-toggle-btn"
             onClick={() => setSidebarVisible(!sidebarVisible)}
             title={sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
+            style={{
+              transform: sidebarVisible ? 'rotate(0deg)' : 'rotate(180deg)',
+              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
           >
             {sidebarVisible ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
           </button>
@@ -81,9 +84,9 @@ const Dashboard: React.FC = () => {
         </div>
       </nav>
 
-      <div className="dashboard-content">
+      <div className={`dashboard-content ${sidebarVisible ? 'sidebar-visible' : 'sidebar-hidden'}`}>
         {/* Sidebar Overlay for Mobile */}
-        {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
+        {sidebarOpen && <div className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`} onClick={() => setSidebarOpen(false)} />}
         
         {sidebarVisible && (
           <Sidebar 

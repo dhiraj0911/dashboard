@@ -1,15 +1,54 @@
 /* Modern Sidebar Styles with Blue Color Palette */
 .modern-sidebar {
   width: 300px;
+  max-width: 300px;
+  min-width: 300px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(25px);
   border-radius: 24px;
   box-shadow: 0 12px 40px var(--shadow-medium);
   border: 1px solid var(--border-light);
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   margin: 8px;
+  transform: translateX(0);
+  opacity: 1;
+  flex-shrink: 0;
+}
+
+/* Sidebar Hidden State */
+.modern-sidebar.hidden {
+  transform: translateX(-320px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Sidebar Show/Hide Animation */
+.modern-sidebar:not(.hidden) {
+  animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-320px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-320px);
+    opacity: 0;
+  }
 }
 
 .modern-sidebar::before {
@@ -294,14 +333,23 @@
     left: 0;
     bottom: 0;
     width: 320px;
+    max-width: 80vw;
     z-index: 200;
     transform: translateX(-100%);
     border-radius: 0 24px 24px 0;
     margin: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .modern-sidebar.open {
     transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .modern-sidebar.hidden {
+    transform: translateX(-100%);
+    opacity: 0;
   }
   
   .sidebar-header {
